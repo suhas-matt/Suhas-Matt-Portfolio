@@ -35,7 +35,7 @@ const portfolioData = {
     instagram: "https://www.instagram.com/suhas_matt/",
     facebook: "https://www.facebook.com/suhasmatt/",
   },
-  objective: "To develop and deploy applications on AWS while learning to build secure, scalable solutions. Excited to grow my skills in Java/Python, cloud services, and Agile projects.",
+  objective: "I have achieved a Master of Computer Applications degree at Dayananda Sagar Academy of Technology and Management under VTU with a CGPA of 8.82. Previously, I completed my B.Sc. in Applied Science through Kuvempu University achieving 69.5%. In 2025, I undertook a DevOps Engineering Internship at SST Technologies, Bengaluru, during which I acquired practical experience building CI/CD pipelines with Jenkins, containerizing applications using Docker, deploying in Kubernetes, provisioning AWS infrastructure, and implementing monitoring solutions based on Prometheus along with Grafana. I am proficient in C, C++, Java, Python, and SQL, and I have experience with frameworks including Spring Boot and Hibernate. Among other projects, I developed a car damage detection using CNN, a DevOps monitoring stack, and a CI/CD pipeline for a full-stack web-app. These projects demonstrate I am able to contribute to both software development practices along with DevOps practices.",
   experience: [
     {
       role: "DevOps Engineering Intern",
@@ -46,7 +46,7 @@ const portfolioData = {
         "Containerized applications with Docker and orchestrated using Kubernetes.",
         "Provisioned cloud infrastructure with AWS (EC2, VPC, S3, IAM).",
         "Implemented monitoring solutions with Prometheus and Grafana dashboards.",
-        "Collaborated in code reviews, retrospectives, and a capstone project integrating CI/CD, containerization, and monitoring tools.",
+        "Collaborated in code reviews, retrospectives, and a capstone project integrating CI/CD, containerization, and   monitoring tools.",
       ],
     },
   ],
@@ -247,12 +247,15 @@ const Hero = () => (
 
 
 const About = () => (
-  <Section id="about" title="About Me" icon={<span className="text-4xl">📜</span>}>
-    <p className="text-lg md:text-xl text-slate-300 leading-relaxed text-center">
-      {portfolioData.objective}
-    </p>
+  <Section id="about" title="About Me" icon={<span className="text-4xl">📜</span>} className="bg-slate-900/50">
+    <div className="bg-slate-800/50 p-6 rounded-lg shadow-lg hover:shadow-teal-400/10 transition-shadow duration-300">
+      <p className="text-slate-400 text-base">
+        {portfolioData.objective}
+      </p>
+    </div>
   </Section>
 );
+
 
 const Experience = () => (
     <Section id="experience" title="Experience" icon={<Briefcase size={36} className="text-teal-400" />} className="bg-slate-900/50">
@@ -262,9 +265,12 @@ const Experience = () => (
                     <p className="text-sm text-slate-400 mb-1">{job.period}</p>
                     <h3 className="text-2xl font-bold text-teal-300">{job.role}</h3>
                     <p className="text-lg font-semibold text-slate-300 mb-4">{job.company}</p>
-                    <ul className="list-disc list-inside text-slate-400 space-y-2">
-                        {job.description.map((point, i) => <li key={i}>{point}</li>)}
-                    </ul>
+                    <ul className="list-disc list-outside pl-6 text-slate-400 space-y-2">
+  {job.description.map((point, i) => (
+    <li key={i} className="text-justify">{point}</li>
+  ))}
+</ul>
+
                 </div>
             ))}
         </div>
@@ -609,7 +615,7 @@ const Contact = () => {
           </div>
 
           <div className="pt-6">
-            <p className="text-slate-300 mb-4">Follow me on social media:</p>
+            <p className="text-slate-300 mb-4">Follow me on social media</p>
             <div className="flex gap-4">
               <a 
                 href={portfolioData.contact.linkedin} 
@@ -685,4 +691,5 @@ export default function App() {
       <Footer />
     </div>
   );
+
 }
