@@ -55,7 +55,7 @@ const portfolioData = {
   name: "Suhas Matt M S",
   title: "MCA Graduate",
   contact: {
-    phone: "+91-8150803062",
+    phone: "+918150803062",
     email: "suhasmattms@gmail.com",
     location: "Bengaluru, India",
     linkedin: "https://www.linkedin.com/in/suhas-matt/",
@@ -796,38 +796,35 @@ const Contact = () => {
           </div>
 
           <div className="space-y-6">
-            <a
-              href={`mailto:${portfolioData.contact.email}`}
-              className="flex items-center text-slate-300 hover:text-teal-400 transition-colors group"
-            >
-              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4 group-hover:bg-teal-500/20 transition-colors">
+            {/* Email */}
+            <div className="flex items-center text-slate-300">
+              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4">
                 <Mail size={20} />
               </div>
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-400 select-text cursor-text">
                   {portfolioData.contact.email}
                 </p>
               </div>
-            </a>
+            </div>
 
-            <a
-              href={`tel:${portfolioData.contact.phone.replace(/-/g, "")}`}
-              className="flex items-center text-slate-300 hover:text-teal-400 transition-colors group"
-            >
-              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4 group-hover:bg-teal-500/20 transition-colors">
+            {/* Phone */}
+            <div className="flex items-center text-slate-300">
+              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4">
                 <Phone size={20} />
               </div>
               <div>
                 <p className="font-medium">Phone</p>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-400 select-text cursor-text">
                   {portfolioData.contact.phone}
                 </p>
               </div>
-            </a>
+            </div>
 
-            <div className="flex items-center text-slate-300 group">
-              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4 group-hover:bg-teal-500/20 transition-colors">
+            {/* Location */}
+            <div className="flex items-center text-slate-300">
+              <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mr-4">
                 <MapPin size={20} />
               </div>
               <div>
