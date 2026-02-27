@@ -10,7 +10,6 @@ import {
   MapPin,
   Linkedin,
   Github,
-  ChevronDown,
   Send,
   User,
   MessageSquare,
@@ -47,6 +46,8 @@ import timeManagement from "./Images/time-management.svg";
 import attentionToDetail from "./Images/attention-to-detail.svg";
 import criticalThinking from "./Images/Critical-Thinking.svg";
 import teamwork from "./Images/team-work.svg";
+
+emailjs.init("DST_jRvqwJajKMWOr");
 
 // Resume data extracted from the document
 
@@ -172,12 +173,6 @@ const Section = ({ id, title, icon, children, className = "" }) => (
       {children}
     </div>
   </section>
-);
-
-const SkillBadge = ({ skill }) => (
-  <span className="inline-block bg-teal-400/10 text-teal-300 text-sm font-medium px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 hover:bg-teal-400/20">
-    {skill}
-  </span>
 );
 
 const SkillCard = ({ skill, image, isImage = false }) => (
@@ -597,11 +592,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init("DST_jRvqwJajKMWOr");
-  }, []);
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -611,21 +601,27 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     setSubmitStatus("");
 
-    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
-  setSubmitStatus("error");
-  setIsSubmitting(false);
-  return;
-}
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.message
+    ) {
+      setSubmitStatus("error");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // EmailJS configuration
       const serviceId = "service_zkrwadj";
       const contactTemplateId = "template_ty9ohmc";
-      const autoReplyTemplateId = "template_vpgfm43";
-      const publicKey = "DST_jRvqwJajKMWOr";
 
       const templateParams = {
         from_name: formData.name.split(" ")[0] || formData.name, // First name
@@ -636,23 +632,7 @@ const Contact = () => {
       };
 
       // Email sent to portfolio owner
-      await emailjs.send(
-        serviceId,
-        contactTemplateId,
-        templateParams,
-        publicKey
-      );
-
-      // Auto-reply sent to the user
-      await emailjs.send(
-        serviceId,
-        autoReplyTemplateId,
-        {
-          name: formData.name,
-          email: formData.email,
-        },
-        publicKey
-      );
+      await emailjs.send(serviceId, contactTemplateId, templateParams);
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
@@ -919,13 +899,9 @@ const Footer = () => (
 export default function App() {
   const [activeSection, setActiveSection] = useState("hero");
 
-  useEffect(() => {
-    // You can add logic here to track scroll and update active section if needed
-  }, []);
-
   return (
     <div className="bg-slate-900 font-sans leading-normal tracking-tight">
-      <AppHeader setActiveSection={setActiveSection} />
+      <AppHeader setActiveSection={() => {}} />
       <main>
         <Hero />
         <About />
