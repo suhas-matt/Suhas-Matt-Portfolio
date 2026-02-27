@@ -49,6 +49,7 @@ import criticalThinking from "./Images/Critical-Thinking.svg";
 import teamwork from "./Images/team-work.svg";
 
 // Resume data extracted from the document
+
 const portfolioData = {
   name: "Suhas Matt M S",
   title: "MCA Graduate",
@@ -133,9 +134,8 @@ const portfolioData = {
       "Time Management",
       "Attention to Detail",
       "Critical Thinking",
-      "Teamwork"
+      "Teamwork",
     ],
-
   },
   projects: [
     {
@@ -332,20 +332,17 @@ const Hero = () => (
       </div>
 
       {/* Right side - Profile picture placeholder */}
-   <div className="flex justify-center lg:justify-end">
-  <div className="w-96 h-96 bg-slate-800/50 rounded-3xl border-[0px] border-teal-600/30 flex items-start justify-center shadow-2xl p-4 ">
-    <div className="w-full h-full rounded-3xl border-[4px] border-white overflow-hidden">
-      <img
-        src={profile}
-        alt="Profile"
-        className="w-96 h-96 object-cover  transition-transform duration-300"
-      />
-    </div>
-  </div>
-</div>
-
-
-
+      <div className="flex justify-center lg:justify-end">
+        <div className="w-96 h-96 bg-slate-800/50 rounded-3xl border-[0px] border-teal-600/30 flex items-start justify-center shadow-2xl p-4 ">
+          <div className="w-full h-full rounded-3xl border-[4px] border-white overflow-hidden">
+            <img
+              src={profile}
+              alt="Profile"
+              className="w-96 h-96 object-cover  transition-transform duration-300"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 );
@@ -428,12 +425,12 @@ const skillImages = {
   "VS Code": { image: vscodeLogo, isImage: true },
 };
 const softSkillImages = {
-  "Collaboration": { image: collaboration, isImage: true },
-  "Adaptability": { image: adaptability, isImage: true },
+  Collaboration: { image: collaboration, isImage: true },
+  Adaptability: { image: adaptability, isImage: true },
   "Time Management": { image: timeManagement, isImage: true },
   "Attention to Detail": { image: attentionToDetail, isImage: true },
   "Critical Thinking": { image: criticalThinking, isImage: true },
-  "Teamwork": { image: teamwork, isImage: true },
+  Teamwork: { image: teamwork, isImage: true },
 };
 
 // ... (code above Skills component)
@@ -519,33 +516,32 @@ const Skills = () => (
 
       {/* Soft Skills - IMPLEMENTING TECHNICAL SKILLS HEADING STYLE */}
       {/* Soft Skills */}
-<div className="mt-12">
-  <h3 className="text-3xl md:text-4xl font-bold text-slate-100 flex items-center mb-6">
-    <User size={36} className="mr-3 text-teal-400" /> Soft Skills
-  </h3>
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {portfolioData.skills.softSkills.map((skill) => {
-      const skillData = softSkillImages[skill] || { image: "🤝", isImage: false };
-      return (
-        <SkillCard
-          key={skill}
-          skill={skill}
-          image={skillData.image}
-          isImage={skillData.isImage}
-        />
-      );
-    })}
-  </div>
-</div>
-
+      <div className="mt-12">
+        <h3 className="text-3xl md:text-4xl font-bold text-slate-100 flex items-center mb-6">
+          <User size={36} className="mr-3 text-teal-400" /> Soft Skills
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {portfolioData.skills.softSkills.map((skill) => {
+            const skillData = softSkillImages[skill] || {
+              image: "🤝",
+              isImage: false,
+            };
+            return (
+              <SkillCard
+                key={skill}
+                skill={skill}
+                image={skillData.image}
+                isImage={skillData.isImage}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   </Section>
 );
 
 // ... (rest of the code)
-
-
-
 
 const Projects = () => (
   <Section
@@ -617,6 +613,12 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("");
+
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+  setSubmitStatus("error");
+  setIsSubmitting(false);
+  return;
+}
 
     try {
       // EmailJS configuration
@@ -735,9 +737,15 @@ const Contact = () => {
                 id="phone"
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const filtered = value.replace(/[^0-9+()]/g, "");
+                  setFormData({ ...formData, phone: filtered });
+                }}
+                required
+                pattern="^[0-9+()]+$"
                 className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
-                placeholder="+91-9100000000"
+                placeholder="+91(9100000000)"
               />
             </div>
 
