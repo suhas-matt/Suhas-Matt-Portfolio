@@ -621,7 +621,8 @@ const Contact = () => {
     try {
       // EmailJS configuration
       const serviceId = "service_zkrwadj";
-      const templateId = "template_ty9ohmc";
+      const contactTemplateId = "template_ty9ohmc";
+      const autoReplyTemplateId = "template_vpgfm43";
       const publicKey = "DST_jRvqwJajKMWOr";
 
       const templateParams = {
@@ -632,7 +633,24 @@ const Contact = () => {
         message: formData.message,
       };
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      // Email sent to portfolio owner
+      await emailjs.send(
+        serviceId,
+        contactTemplateId,
+        templateParams,
+        publicKey
+      );
+
+      // Auto-reply sent to the user
+      await emailjs.send(
+        serviceId,
+        autoReplyTemplateId,
+        {
+          name: formData.name,
+          email: formData.email,
+        },
+        publicKey
+      );
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
